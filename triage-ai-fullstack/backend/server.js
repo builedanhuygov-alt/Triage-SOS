@@ -1612,6 +1612,7 @@ io.on("connection", (socket) => {
 });
 
 // 404 JSON cho mọi /api/* chưa định nghĩa (không HTML) + 500 JSON không stack trace (§21).
+app.get("/", (_req, res) => res.json({ service: SERVICE, version: APP_VERSION, environment: ENV, time: new Date().toISOString() }));
 app.use("/api", (req, res) => res.status(404).json({ success: false, data: null, error: "not found", code: "NOT_FOUND", requestId: req.id || null, timestamp: new Date().toISOString() }));
 // eslint-disable-next-line no-unused-vars
 app.use((e, req, res, _next) => {
