@@ -1,7 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { fetchDemoAccounts } from "../../services/hospitalApi.js";
+import { fetchDemoAccounts, adminAcceptInvite } from "../../services/hospitalApi.js";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { Card, SectionTitle, RoleBadge, DemoBanner } from "./ui.jsx";
+
+/** Kích hoạt tài khoản thật: dán invitation token + đặt password riêng (≥8 ký tự). */
+function InviteAccept() {
+  const [token, setToken] = useState("");
+  const [pw, setPw] = useState("");
+  const [msg, setMsg] = useState("");
+  const [busy, setBusy] = useState(false);
+  const submit = async () => {
+    try {
+      setBusy(true); setMsg("");
+      const r = await adminAcceptInvite(token.trim(), pw);
+      setMsg(`✅ ${r.user.fullName} đã ACTIVE — đăng nhập bằng username + password vừa đặt.`);
+      setToken(""); setPw("");
+    } catch (e) { setMsg(`❌ ${e?.response?.data?.error || "Kích hoạt thất bại"}`); }
+    finally { setBusy(false); }
+  };
+  const inp = "w-full rounded-xl bg-white/5 px-3 py-2 text-sm text-white ring-1 ring-white/10 outline-none placeholder:text-zinc-500";
+  return (
+    <Card>
+      <SectionTitle>Kích hoạt tài khoản (người thật)</SectionTitle>
+      <p className="mt-1 text-[12px] text-zinc-400">Dán invitation token được cấp + đặt password riêng (tối thiểu 8 ký tự). Password hash lưu server, không ai biết ngoài bạn.</p>
+      <div className="mt-2 space-y-2">
+        <input value={token} onChange={(e) => setToken(e.target.value)} placeholder="Invitation token" className={`${inp} font-mono`} />
+        <input value={pw} onChange={(e) => setPw(e.target.value)} type="password" placeholder="Password mới (≥8 ký tự)" className={inp} />
+        {msg && <p className="text-[13px] text-zinc-200">{msg}</p>}
+        <button onClick={submit} disabled={busy || !token || pw.length < 8} className="rounded-xl bg-emerald-500 px-4 py-2 text-xs font-black text-white disabled:opacity-40">{busy ? "…" : "Kích hoạt → ACTIVE"}</button>
+      </div>
+    </Card>
+  );
+}
 
 /** Demo Account Portal: chọn nhóm → tài khoản → Đăng nhập Demo (qua auth/RBAC thật). */
 export default function DemoPortal() {
@@ -28,6 +58,7 @@ export default function DemoPortal() {
   return (
     <div className="space-y-3">
       <DemoBanner />
+      <InviteAccept />
       <Card>
         <SectionTitle>Demo Account Portal</SectionTitle>
         <p className="mt-1 text-[12px] text-zinc-400">Mỗi tài khoản hiển thị credential DEMO riêng · Nút “Đăng nhập Demo” gọi API login thật, token + RBAC thật, không bypass frontend.</p>
