@@ -103,8 +103,10 @@ function login(email, password) {
   } catch (e) {
     console.warn("[auth] userstore login fallback:", e.message);
   }
-  // 2) Legacy static (7 tài khoản gốc + tương thích)
-  const u = USERS.find((x) => x.email === em);
+  // 2) Legacy static: 7 tài khoản gốc luôn dùng được (CEO = bootstrap khi DB trống).
+  // 250 seed tĩnh (u-demo-*) chỉ dùng khi cho phép demo — real-people mode thì chặn.
+  const allowDemo = process.env.NODE_ENV !== "production" || process.env.ALLOW_DEMO_SEED === "1";
+  const u = USERS.find((x) => x.email === em && (allowDemo || !String(x.id).startsWith("u-demo-")));
   // Hash trước rồi so sánh hằng thời gian (timingSafeEqual đòi cùng độ dài)
   const digest = (s) => crypto.createHash("sha256").update(String(s || "")).digest();
   const ok = u && crypto.timingSafeEqual(digest(u.password), digest(password));
@@ -116,10 +118,14 @@ function login(email, password) {
   return { token: issueToken(u), user: safe };
 }
 
-// Import 250 seed 1 lần/process (INSERT OR IGNORE — nhanh, an toàn đa process).
+// Import 250 seed 1 lần/process — CHỈ khi cho phép demo seed.
+// Production "người thật": NODE_ENV=production + ALLOW_DEMO_SEED trống → DB trống thật,
+// không tự sinh demo (tránh lockout: hãy tạo Director thật TRƯỚC khi wipe).
 let _seeded = false;
 function seedImportOnce() {
   if (_seeded || !Hospital) return;
+  const allowDemo = process.env.NODE_ENV !== "production" || process.env.ALLOW_DEMO_SEED === "1";
+  if (!allowDemo) { _seeded = true; console.log("[auth] demo seed OFF (real-people mode)"); return; }
   const Store = require("./userStore.js");
   const r = Store.importSeed(Hospital.USERS, Hospital.DEMO_PASSWORD);
   _seeded = true;
