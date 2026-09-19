@@ -1,0 +1,21 @@
+{
+  "name": "triage-backend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Triage AI Command Center — Realtime emergency backend (Express + Socket.io)",
+  "main": "server.js",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "check-hospital": "node scripts/check-hospital.js",
+    "export-excel": "node scripts/export-accounts-json.js scripts/accounts.json && python scripts/make_excel.py scripts/accounts.json ../release/demo-hospital-accounts.xlsx",
+    "test": "node --test tests/antiSabotage.test.js tests/stateMachine.test.js tests/api.test.js tests/hospital.test.js tests/v2.test.js tests/release.test.js tests/usermgmt.test.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^18.0.1",
+    "express": "^4.21.0",
+    "socket.io": "^4.8.0"
+  }
+}

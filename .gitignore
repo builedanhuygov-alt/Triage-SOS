@@ -1,0 +1,36 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Builds
+dist/
+build/
+*.log
+
+# SQLite + snapshots (local only — KHÔNG commit DB/thông tin test)
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+db.snapshot.json
+tests/.test.*
+
+# Env & secrets — KHÔNG BAO GIỜ commit secrets/keystore
+.env
+.env.*
+!.env.example
+*.keystore
+**/key.properties
+
+# Release binaries lớn (giữ xlsx/report, bỏ apk/aab nặng nếu muốn repo nhẹ)
+# Bỏ comment dòng dưới để không commit APK/AAB:
+# *.apk
+# *.aab
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

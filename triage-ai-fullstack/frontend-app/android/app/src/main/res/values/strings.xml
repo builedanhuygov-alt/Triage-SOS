@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Triage SOS</string>
+    <string name="title_activity_main">Triage SOS</string>
+    <string name="package_name">vn.triage.sos</string>
+    <string name="custom_url_scheme">vn.triage.sos</string>
+</resources>

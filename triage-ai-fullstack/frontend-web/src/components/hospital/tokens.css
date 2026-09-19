@@ -1,0 +1,47 @@
+/* Design tokens — BVĐK TW DEMO1 (§16): Clinical Dark / Medical White /
+   Operational Blue / Critical Red / Warning Amber / Success Green / Muted Gray.
+   Cards gọn, typography rõ, không gradient lòe loẹt, không glassmorphism quá đà. */
+:root {
+  --clin-bg: #0b1220;
+  --clin-surface: #111a2e;
+  --clin-card: #14203a;
+  --clin-border: #24365c;
+  --clin-text: #e8eefc;
+  --clin-muted: #8ea0c2;
+  --med-white: #f6f8fc;
+  --ops-blue: #2563eb;
+  --crit-red: #dc2626;
+  --warn-amber: #d97706;
+  --ok-green: #059669;
+  --muted-gray: #64748b;
+}
+.hosp-admin { background: var(--clin-bg); color: var(--clin-text); }
+.hosp-card {
+  background: var(--clin-surface);
+  border: 1px solid var(--clin-border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.hosp-title { font-size: 14px; font-weight: 800; letter-spacing: 0.01em; }
+.hosp-muted { color: var(--clin-muted); font-size: 12px; }
+.hosp-input, .hosp-select {
+  background: #0d1628; color: var(--clin-text);
+  border: 1px solid var(--clin-border); border-radius: 8px;
+  padding: 8px 10px; font-size: 13px; width: 100%;
+}
+.hosp-input:focus, .hosp-select:focus { outline: 2px solid var(--ops-blue); outline-offset: 0; }
+.hosp-btn {
+  border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 700;
+  border: 1px solid transparent; cursor: pointer;
+}
+.hosp-btn-primary { background: var(--ops-blue); color: #fff; }
+.hosp-btn-danger { background: var(--crit-red); color: #fff; }
+.hosp-btn-ghost { background: transparent; color: var(--clin-text); border-color: var(--clin-border); }
+.hosp-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.hosp-badge { border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 800; }
+.hosp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.hosp-table th { text-align: left; color: var(--clin-muted); font-size: 11px; text-transform: uppercase; padding: 8px; border-bottom: 1px solid var(--clin-border); }
+.hosp-table td { padding: 8px; border-bottom: 1px solid #1a2745; }
+.hosp-table tr:hover td { background: #16233f; }
+.hosp-err { color: #fca5a5; font-size: 12px; }
+.hosp-ok { color: #6ee7b7; font-size: 12px; }

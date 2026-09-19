@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Accessibility: vòng focus rõ cho điều hướng bàn phím */
+:focus-visible {
+  outline: 2px solid #ef4444;
+  outline-offset: 2px;
+}

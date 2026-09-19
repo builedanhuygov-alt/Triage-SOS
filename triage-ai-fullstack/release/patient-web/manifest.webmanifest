@@ -1,0 +1,17 @@
+{
+  "name": "Triage SOS — Patient App (DEMO)",
+  "short_name": "Triage SOS",
+  "description": "Patient/Caregiver Health Hub demo — BVĐK TW DEMO1. DEMO DATA, chưa phát hành Store.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#dc2626",
+  "lang": "vi",
+  "version": "1.5.0",
+  "icons": [
+    { "src": "/icons/icon-192.webp", "sizes": "192x192", "type": "image/webp" },
+    { "src": "/icons/icon-512.webp", "sizes": "512x512", "type": "image/webp" }
+  ]
+}

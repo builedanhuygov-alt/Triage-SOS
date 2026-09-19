@@ -1,0 +1,32 @@
+# Render Blueprint — backend Node 24 + Express + Socket.io + SQLite persistent.
+# Dashboard Render: New → Blueprint → chọn repo → trỏ file này.
+# LƯU Ý: free plan KHÔNG có persistent disk (SQLite/snapshot mất khi restart/sleep).
+# Production thật cần plan có Disk (Starter+) + mount /var/data (xem disk bên dưới).
+services:
+  - type: web
+    name: triage-backend
+    runtime: node
+    rootDir: triage-ai-fullstack/backend
+    buildCommand: npm install && npm test
+    startCommand: npm start
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true
+    # Bật disk khi dùng plan trả phí để SQLite + snapshot sống qua restart/redeploy.
+    # disk:
+    #   name: triage-data
+    #   mountPath: /var/data
+    #   sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: NODE_ENV
+        value: "production"
+      - key: AUTH_SECRET
+        sync: false # BẮT BUỘC nhập tay trên dashboard (random dài, không commit)
+      - key: DATABASE_PATH
+        value: "/var/data/hospital.db" # free plan (không disk): đổi thành ./data/hospital.db (mất khi sleep)
+      - key: CORS_ORIGINS
+        value: "https://triage-command-center.vercel.app,https://triage-sos-app.vercel.app"
+      - key: ALLOW_DEMO_SEED
+        value: "" # để trống ở production (seed chỉ khi DB trống)
