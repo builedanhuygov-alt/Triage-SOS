@@ -1,15 +1,13 @@
 App: Triage SOS (Patient/Caregiver Super App)
 Application ID: vn.triage.sos
-Version: 1.5.0 (versionCode 13)
+Version: 1.5.0 (versionCode 14)
 Build date (UTC): 2026-09-19
-Commit: no-git-repo
-Backend version: triage-backend 1.5.0 (Express + Socket.io, snapshot persistence)
-Backend URL (baked): https://highway-spring-personals-transparency.trycloudflare.com (pre-existing .env.production; verify reachability before field demo)
-Web/PWA: https://triage-sos-app.vercel.app (manifest + sw.js + icons, HTTP 200 verified)
-Tests: backend 64/64 (node --test)
+Backend version: triage-backend 1.5.0 (Render production)
+Backend URL (baked): https://triage-backend-znyt.onrender.com
+Web/PWA: https://triage-sos-app.vercel.app
+Tests: backend 73/73 (node --test)
 E2E: N/A (no harness in repo)
-Signing: self-signed DEMO keystore (CN=Triage SOS Demo; DEMO ONLY, NOT a Play Store key)
-APK: app-release.apk 3427846 bytes, apksigner V2 verify OK
-AAB: app-release.aab 3218930 bytes
+Signing: self-signed DEMO keystore (DEMO ONLY, NOT a Play Store key)
+APK size: 3427810 bytes
+apksigner verify: exit=0
 Branding: custom icon + splash, vi-VN
-PWA added this release: manifest.webmanifest, sw.js (app-shell cache, API network-only), version 1.5.0

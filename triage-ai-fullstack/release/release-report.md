@@ -96,7 +96,15 @@ Login/API sau publish: BLOCKED (thiếu backend production — cần Render depl
 - APK/AAB mới: KHÔNG build đợt này (giữ artifact V2 trước đó).
 - External: BHYT/Maps/115/Payment/SMS/Health/Email = ADAPTER READY/SIMULATED.
 
-# PRODUCTION DEPLOY (2026-09-19, đợt Node+SQLite+Socket.io)
+# PRODUCTION DEPLOY — RENDER LIVE (2026-09-19, đợt Node+SQLite+Socket.io)
+
+- API: https://triage-backend-znyt.onrender.com — LIVE (Singapore, free plan, deploy tự động từ GitHub master).
+- Health /ready: PASS qua public HTTPS. 250/250 seed sau restart (ALLOW_DEMO_SEED=1).
+- Public smoke 20/21 (18b JOIN_DENIED chỉ thiếu do timeout 3s; verify riêng: DENIED=true).
+- Persistence test: created user login 200 → restart → 401 (MẤT — free plan không disk, đúng như dự kiến).
+- DATABASE: NOT PRODUCTION READY trên free — cần nâng Starter + mount disk /var/data (render.yaml đã có block disk comment sẵn).
+- Frontend trỏ API thật (bundle + Vercel env), redeploy, 200.
+- AUTH_SECRET: random 48 bytes, cấu hình trên Render dashboard/API (không commit, file tạm đã xóa).
 
 - Backend audit 21/21; prod-simulation 13/13; public smoke qua tunnel 20/20 (TEMPORARY).
 - Hardening: DATABASE_PATH, AUTH_SECRET fail-fast, CORS allowlist (2 origins, log count),
